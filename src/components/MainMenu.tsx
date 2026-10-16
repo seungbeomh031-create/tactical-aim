@@ -183,23 +183,52 @@ export const MainMenu: React.FC<MainMenuProps> = ({
               </div>
             </div>
 
-            {/* Mouse Sensitivity */}
+            {/* Valorant Mouse Sensitivity & eDPI System */}
             <div className="config-item">
-              <label className="config-label">
-                <span>MOUSE SENSITIVITY (감도)</span>
-                <span style={{ color: 'var(--color-cyan)', fontWeight: 'bold' }}>
-                  {settings.sensitivity.toFixed(1)}x
-                </span>
-              </label>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <label className="config-label" style={{ margin: 0 }}>
+                  <span>VALORANT SENSITIVITY (발로란트 인게임 감도)</span>
+                </label>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <input
+                    type="number"
+                    step="0.005"
+                    min="0.05"
+                    max="2.5"
+                    value={settings.sensitivity}
+                    onChange={(e) => {
+                      const val = parseFloat(e.target.value);
+                      if (!isNaN(val) && val >= 0.01) {
+                        onUpdateSettings({ sensitivity: parseFloat(val.toFixed(3)) });
+                      }
+                    }}
+                    style={{
+                      width: '74px',
+                      background: 'rgba(7, 11, 20, 0.9)',
+                      border: '1px solid var(--color-cyan)',
+                      color: 'var(--color-cyan)',
+                      fontFamily: 'var(--font-display)',
+                      fontWeight: 'bold',
+                      fontSize: '1rem',
+                      padding: '4px 8px',
+                      textAlign: 'center',
+                      borderRadius: '2px',
+                      outline: 'none',
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Slider */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <input
                   type="range"
-                  min="0.2"
-                  max="3.0"
-                  step="0.1"
+                  min="0.05"
+                  max="1.5"
+                  step="0.005"
                   value={settings.sensitivity}
                   onChange={(e) =>
-                    onUpdateSettings({ sensitivity: parseFloat(e.target.value) })
+                    onUpdateSettings({ sensitivity: parseFloat(parseFloat(e.target.value).toFixed(3)) })
                   }
                   style={{
                     flex: 1,
@@ -207,6 +236,80 @@ export const MainMenu: React.FC<MainMenuProps> = ({
                     cursor: 'pointer',
                   }}
                 />
+              </div>
+
+              {/* Mouse DPI & eDPI Display */}
+              <div
+                style={{
+                  background: 'rgba(10, 16, 26, 0.8)',
+                  border: '1px solid rgba(0, 242, 255, 0.2)',
+                  padding: '10px 12px',
+                  borderRadius: '4px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '8px',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>MOUSE DPI:</span>
+                  <div style={{ display: 'flex', gap: '6px' }}>
+                    {[400, 800, 1600].map((dpi) => (
+                      <button
+                        key={dpi}
+                        type="button"
+                        onClick={() => onUpdateSettings({ mouseDpi: dpi })}
+                        style={{
+                          background: settings.mouseDpi === dpi ? 'var(--color-cyan)' : 'rgba(255, 255, 255, 0.05)',
+                          color: settings.mouseDpi === dpi ? '#080c14' : 'var(--text-muted)',
+                          border: '1px solid var(--border-subtle)',
+                          padding: '2px 8px',
+                          fontSize: '0.75rem',
+                          borderRadius: '2px',
+                        }}
+                      >
+                        {dpi}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid rgba(255, 255, 255, 0.06)', paddingTop: '6px' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                    eDPI ({settings.mouseDpi || 800} DPI × {settings.sensitivity}):
+                  </span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontWeight: 'bold', color: 'var(--color-amber)', fontSize: '1rem' }}>
+                    {Math.round((settings.mouseDpi || 800) * settings.sensitivity)} eDPI
+                  </span>
+                </div>
+              </div>
+
+              {/* Valorant Pro Sensitivity Presets */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
+                {[
+                  { label: '0.25 (저감도)', val: 0.25 },
+                  { label: '0.35 (프로표준)', val: 0.35 },
+                  { label: '0.45 (중고감도)', val: 0.45 },
+                  { label: '0.55 (고감도)', val: 0.55 },
+                ].map((preset) => (
+                  <button
+                    key={preset.val}
+                    type="button"
+                    className="tactical-bevel"
+                    onClick={() => {
+                      soundManager.playClickSound();
+                      onUpdateSettings({ sensitivity: preset.val });
+                    }}
+                    style={{
+                      background: settings.sensitivity === preset.val ? 'rgba(0, 242, 255, 0.2)' : 'rgba(255, 255, 255, 0.03)',
+                      border: settings.sensitivity === preset.val ? '1px solid var(--color-cyan)' : '1px solid rgba(255, 255, 255, 0.1)',
+                      color: settings.sensitivity === preset.val ? '#fff' : 'var(--text-muted)',
+                      padding: '4px',
+                      fontSize: '0.7rem',
+                    }}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>

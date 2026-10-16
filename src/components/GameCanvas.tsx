@@ -216,7 +216,9 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
     const handleMouseMove = (e: MouseEvent) => {
       if (!isPlaying) return;
 
-      const sens = settings.sensitivity || 1.0;
+      // 발로란트 실사 기준 감도 환산 비율
+      const VALORANT_SENS_RATIO = 2.4;
+      const sens = (settings.sensitivity || 0.35) * VALORANT_SENS_RATIO;
 
       let dx = 0;
       let dy = 0;

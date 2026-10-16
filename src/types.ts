@@ -12,6 +12,7 @@ export interface GameSettings {
   crosshairStyle: CrosshairStyle;
   soundEnabled: boolean;
   sensitivity: number;
+  mouseDpi: number;
 }
 
 export interface GameStats {

@@ -9,7 +9,8 @@ export const DEFAULT_SETTINGS: GameSettings = {
   crosshairColor: 'cyan',
   crosshairStyle: 'tactical',
   soundEnabled: true,
-  sensitivity: 1.0,
+  sensitivity: 0.35,
+  mouseDpi: 800,
 };
 
 export const loadGameSettings = (): GameSettings => {
