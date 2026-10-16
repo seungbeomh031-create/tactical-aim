@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0" />
+    <title>TACTICAL AIM | 전술 에임 트레이너</title>
+    <meta name="description" content="전술 FPS 스타일의 고정밀 2D 에임 트레이너. 헤드샷 정밀도와 반사신경을 단련하세요." />
+    <!-- Google Fonts: Rajdhani, Chakra Petch, Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700&family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body style="margin: 0; background-color: #0a0e17; color: #fff;">
+    <div id="root"></div>
+
+    <!-- 파일 프로토콜(file://)로 직접 열었을 때 안내 배너 -->
+    <div id="file-protocol-warning" style="display: none; position: fixed; inset: 0; background: #0a0e17; color: #fff; z-index: 99999; font-family: sans-serif; display: none; align-items: center; justify-content: center; padding: 24px;">
+      <div style="max-width: 560px; background: #131d2e; border: 2px solid #00f2ff; padding: 32px; border-radius: 8px; box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 12px;">⚠️</div>
+        <h2 style="color: #00f2ff; margin-bottom: 12px; font-size: 1.5rem;">웹 서버 주소로 접속해 주세요</h2>
+        <p style="color: #8b9bb4; line-height: 1.6; font-size: 0.95rem; margin-bottom: 24px;">
+          React + Vite 기반 프로젝트는 브라우저에서 HTML 파일을 직접 더블 클릭(<code>file://</code>)해서 열면 모듈 스크립트 보안 정책상 흰 화면이 나타납니다.
+        </p>
+        <div style="background: #080c14; border: 1px solid rgba(0, 242, 255, 0.4); padding: 16px; border-radius: 6px; margin-bottom: 24px;">
+          <p style="margin: 0 0 8px 0; font-size: 0.85rem; color: #8b9bb4;">브라우저 주소창에 아래 주소를 입력하세요:</p>
+          <a href="http://127.0.0.1:5173" style="color: #00f2ff; font-size: 1.3rem; font-weight: bold; text-decoration: none;">http://127.0.0.1:5173</a>
+        </div>
+        <p style="color: #53647c; font-size: 0.8rem; margin: 0;">
+          터미널에서 <code>npm run dev</code> 가 실행 중이어야 합니다.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      if (window.location.protocol === 'file:') {
+        document.getElementById('file-protocol-warning').style.display = 'flex';
+      }
+    </script>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
